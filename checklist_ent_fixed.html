@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checklist Transition ENT HDF 2025</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px 30px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-top: 4px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .section.accounts { border-color: #3b82f6; }
+        .section.content { border-color: #8b5cf6; }
+        .section.technical { border-color: #f59e0b; }
+
+        .section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section.accounts h3 { color: #3b82f6; }
+        .section.content h3 { color: #8b5cf6; }
+        .section.technical h3 { color: #f59e0b; }
+
+        .task-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #10b981;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .task-item:hover {
+            background: #f1f5f9;
+            transform: translateX(5px);
+        }
+
+        .task-item.critical {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .task-item.warning {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .task-item.info {
+            border-left-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .task-item.completed {
+            background: #ecfdf5;
+            border-left-color: #10b981;
+            opacity: 0.8;
+        }
+
+        .task-item.completed .task-title {
+            text-decoration: line-through;
+            color: #6b7280;
+        }
+
+        .task-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-description {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .checkbox.checked {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+
+        .checkbox:hover {
+            border-color: #10b981;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2937;
+            display: block;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header h2 { font-size: 1.2rem; }
+            .content { 
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 20px;
+            }
+            .section { padding: 20px; }
+            .stats { gap: 20px; }
+        }
+
+        .tip {
+            background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+            border: 1px solid #81d4fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .tip::before {
+            content: "";
+            display: none;
+        }
+
+        .tip-content {
+            font-weight: 600;
+            color: #0277bd;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>✅ Checklist Transition ENT HDF</h1>
+<h2>Année scolaire 2025</h2>
+<p>Votre guide complet pour préparer efficacement la nouvelle année scolaire sur l'ENT Hauts-de-France</p>
+</div>
+<div class="progress-container">
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="progress-text" id="progressText">0% complété - Commencez par cocher vos premières tâches !</div>
+</div>
+<div class="tip">
+<div class="tip-content">
+<strong>Astuce :</strong> Cliquez sur les tâches pour les marquer comme terminées et suivre votre progression !
+            </div>
+</div>
+<div class="content">
+<!-- Column 1: Gestion des comptes -->
+<div class="section accounts">
+<h3>🔄 Gestion des comptes et des groupes</h3>
+<div class="task-item" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Vérifier les rattachements des enseignants
+                    </div>
+<div class="task-description">
+                        Assurez-vous que chaque enseignant est correctement rattaché à son établissement pour l'année à venir.
+                    </div>
+</div>
+<div class="task-item" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Supprimer les groupes manuels obsolètes
+                    </div>
+<div class="task-description">
+                        Éliminez les groupes créés manuellement qui ne seront plus utilisés, à l'exception de ceux nécessaires comme le groupe "Resp Affect Gar".
+                    </div>
+</div>
+<div class="task-item" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Supprimer les favoris de partage inutiles
+                    </div>
+<div class="task-description">
+                        Nettoyez les favoris de partage qui ne sont plus pertinents pour éviter toute confusion.
+                    </div>
+</div>
+<div class="task-item critical" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Bloquer les comptes avant la rentrée
+                    </div>
+<div class="task-description">
+                        Verrouillez les comptes pour éviter des connexions prématurées et garantir que les données soient à jour lors de la réouverture.
+                    </div>
+</div>
+</div>
+<!-- Column 2: Gestion des contenus -->
+<div class="section content">
+<h3>📁 Gestion des contenus et des partages</h3>
+<div class="task-item" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Sauvegarder les contenus importants
+                    </div>
+<div class="task-description">
+                        Assurez-vous que tous les documents, cours et ressources pédagogiques importants sont sauvegardés.
+                    </div>
+</div>
+<div class="task-item" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Transférer les contenus aux enseignants concernés
+                    </div>
+<div class="task-description">
+                        Si vous quittez l'établissement ou changez de classe, partagez les contenus pertinents avec les enseignants qui en auront besoin.
+                    </div>
+</div>
+<div class="task-item warning" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Vérifier les partages de contenus
+                    </div>
+<div class="task-description">
+                        Les partages réalisés avec des groupes préétablis seront supprimés. Les partages avec des personnes spécifiques ou des groupes manuels seront conservés.
+                    </div>
+</div>
+<div class="task-item info" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Créer un blog public pour les familles
+                    </div>
+<div class="task-description">
+                        Si nécessaire, mettez en place un blog public pour fournir des informations générales aux familles n'ayant pas encore obtenu de compte ENT.
+                    </div>
+</div>
+</div>
+<!-- Column 3: Préparation technique -->
+<div class="section technical">
+<h3>🛠️ Préparation technique</h3>
+<div class="task-item" onclick="toggleTask(this)">
+<div class="task-title">
+<input style="width: 20px; height: 20px; margin-right: 10px;" type="checkbox" onclick="event.stopPropagation()"/>
+                        Gérer les doublons
+                    </div>
+<div class="task-description">
+                        Identifiez et résolvez les éventuels doublons de comptes pour éviter des problèmes d'accès.
+                    </div>
+</div>
+</div>
+</div>
+<div class="footer">
+<div class="stats">
+<div class="stat">
+<span class="stat-number" id="totalTasks">9</span>
+<span class="stat-label">Tâches totales</span>
+</div>
+<div class="stat">
+<span class="stat-number" id="completedTasks">0</span>
+<span class="stat-label">Terminées</span>
+</div>
+<div class="stat">
+<span class="stat-number" id="remainingTasks">9</span>
+<span class="stat-label">Restantes</span>
+</div>
+</div>
+<button class="reset-btn" onclick="resetAllTasks()">🔄 Réinitialiser toutes les tâches</button>
+<p style="margin-top: 30px; font-size: 0.9rem;">
+                Guide de transition pour l'année scolaire 2025 - ENT Hauts-de-France<br/>
+<em>Version interactive optimisée pour WordPress</em>
+</p>
+</div>
+</div>
+
+<script>
+// Variables globales
+let completedCount = 0;
+const totalTasks = document.querySelectorAll('.task-item').length;
+
+// Fonction pour basculer l'état d'une tâche
+function toggleTask(taskElement) {
+    const checkbox = taskElement.querySelector('input[type="checkbox"]');
+    const isCompleted = taskElement.classList.contains('completed');
+    
+    if (isCompleted) {
+        // Décocher la tâche
+        taskElement.classList.remove('completed');
+        checkbox.checked = false;
+        completedCount--;
+    } else {
+        // Cocher la tâche
+        taskElement.classList.add('completed');
+        checkbox.checked = true;
+        completedCount++;
+        
+        // Animation de célébration
+        taskElement.style.animation = 'none';
+        taskElement.offsetHeight; // Force reflow
+        taskElement.style.animation = 'fadeIn 0.5s ease';
+    }
+    
+    updateProgress();
+    saveProgress();
+}
+
+// Fonction pour mettre à jour la barre de progression
+function updateProgress() {
+    const percentage = Math.round((completedCount / totalTasks) * 100);
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const completedTasksSpan = document.getElementById('completedTasks');
+    const remainingTasksSpan = document.getElementById('remainingTasks');
+    
+    progressFill.style.width = percentage + '%';
+    completedTasksSpan.textContent = completedCount;
+    remainingTasksSpan.textContent = totalTasks - completedCount;
+    
+    // Messages dynamiques selon la progression
+    if (percentage === 0) {
+        progressText.textContent = "0% complété - Commencez par cocher vos premières tâches !";
+    } else if (percentage < 25) {
+        progressText.textContent = `${percentage}% complété - Bon début ! Continuez comme ça 🚀`;
+    } else if (percentage < 50) {
+        progressText.textContent = `${percentage}% complété - Vous êtes sur la bonne voie ! 💪`;
+    } else if (percentage < 75) {
+        progressText.textContent = `${percentage}% complété - Plus que la moitié ! Excellent travail 👏`;
+    } else if (percentage < 100) {
+        progressText.textContent = `${percentage}% complété - Presque terminé ! Plus que quelques tâches 🎯`;
+    } else {
+        progressText.textContent = "🎉 100% complété - Félicitations ! Vous êtes prêt pour la rentrée !";
+        
+        // Animation de célébration finale
+        confetti();
+    }
+}
+
+// Fonction pour sauvegarder la progression (simulation - sans localStorage)
+function saveProgress() {
+    // En environnement WordPress, cette fonction pourrait être étendue
+    // pour sauvegarder via AJAX dans la base de données
+    console.log(`Progression sauvegardée: ${completedCount}/${totalTasks} tâches complétées`);
+}
+
+// Fonction pour charger la progression sauvegardée
+function loadProgress() {
+    // Simulation de chargement - dans un vrai environnement WordPress,
+    // ceci chargerait depuis la base de données
+    console.log('Chargement de la progression...');
+}
+
+// Fonction pour réinitialiser toutes les tâches
+function resetAllTasks() {
+    if (confirm('Êtes-vous sûr de vouloir réinitialiser toutes les tâches ?')) {
+        const allTasks = document.querySelectorAll('.task-item');
+        allTasks.forEach(task => {
+            task.classList.remove('completed');
+            const checkbox = task.querySelector('input[type="checkbox"]');
+            checkbox.checked = false;
+        });
+        
+        completedCount = 0;
+        updateProgress();
+        saveProgress();
+        
+        // Animation de réinitialisation
+        document.querySelector('.container').style.animation = 'fadeIn 0.5s ease';
+    }
+}
+
+// Animation de confettis (simple)
+function confetti() {
+    // Créer des confettis simples avec CSS
+    for (let i = 0; i < 50; i++) {
+        createConfetti();
+    }
+}
+
+function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.top = '-10px';
+    confetti.style.width = '10px';
+    confetti.style.height = '10px';
+    confetti.style.backgroundColor = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7'][Math.floor(Math.random() * 7)];
+    confetti.style.borderRadius = '50%';
+    confetti.style.animation = 'fall 3s linear';
+    confetti.style.zIndex = '9999';
+    confetti.style.pointerEvents = 'none';
+    
+    document.body.appendChild(confetti);
+    
+    setTimeout(() => {
+        confetti.remove();
+    }, 3000);
+}
+
+// Style pour l'animation des confettis
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fall {
+        0% {
+            transform: translateY(-100vh) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Gestion des événements pour les checkboxes
+document.addEventListener('DOMContentLoaded', function() {
+    // Synchroniser les checkboxes avec les clics sur les tâches
+    const checkboxes = document.querySelectorAll('.task-item input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function(e) {
+            e.stopPropagation();
+            const taskItem = this.closest('.task-item');
+            
+            if (this.checked) {
+                if (!taskItem.classList.contains('completed')) {
+                    taskItem.classList.add('completed');
+                    completedCount++;
+                }
+            } else {
+                if (taskItem.classList.contains('completed')) {
+                    taskItem.classList.remove('completed');
+                    completedCount--;
+                }
+            }
+            
+            updateProgress();
+            saveProgress();
+        });
+    });
+    
+    // Initialiser la progression
+    loadProgress();
+    updateProgress();
+});
+
+// Ajout d'effets sonores (optionnel)
+function playSound(type) {
+    // Cette fonction pourrait jouer des sons pour améliorer l'expérience
+    // Désactivée pour éviter les problèmes d'autoplay
+    console.log(`Son ${type} joué`);
+}
+</script>
+</body>
+</html>
