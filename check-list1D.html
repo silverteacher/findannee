@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist de Rentree</title>
+    <title>Checklist de Rentrée</title>
     <style>
         * {
             margin: 0;
@@ -180,61 +180,61 @@
 
         <div class="content">
             <div class="section">
-                <div class="section-title">🔄 Avant la rentree</div>
+                <div class="section-title">🔄 Avant la rentrée</div>
                 
-                <div class="subsection-title">✨ Preparation et nettoyage</div>
+                <div class="subsection-title">✨ Préparation et nettoyage</div>
                 
                 <div class="task">
                     <input type="checkbox" id="task1">
                     <div class="task-content">
-                        <div class="task-title">Supprimer les groupes manuels obsoletes</div>
-                        <div class="task-description">Eliminer les groupes de l'annee precedente qui ne sont plus necessaires</div>
+                        <div class="task-title">Supprimer les groupes manuels obsolètes</div>
+                        <div class="task-description">Éliminer les groupes de l'année précédente qui ne sont plus nécessaires</div>
                     </div>
                 </div>
 
                 <div class="task">
                     <input type="checkbox" id="task2">
                     <div class="task-content">
-                        <div class="task-title">Supprimer les favoris de partage obsoletes</div>
-                        <div class="task-description">Nettoyer les favoris pour eviter toute confusion</div>
+                        <div class="task-title">Supprimer les favoris de partage obsolètes</div>
+                        <div class="task-description">Nettoyer les favoris pour éviter toute confusion</div>
                     </div>
                 </div>
 
                 <div class="task">
                     <input type="checkbox" id="task3">
                     <div class="task-content">
-                        <div class="task-title">Transferer les contenus importants en cas de depart</div>
+                        <div class="task-title">Transférer les contenus importants en cas de départ</div>
                         <div class="task-description">S'assurer que les ressources importantes sont transmises</div>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <div class="section-title">📅 Dans le mois qui suit la rentree</div>
+                <div class="section-title">📅 Dans le mois qui suit la rentrée</div>
                 
                 <div class="subsection-title">👥 Gestion des utilisateurs</div>
                 
                 <div class="task">
                     <input type="checkbox" id="task4">
                     <div class="task-content">
-                        <div class="task-title">Associer les enseignants a leur classe, ou veiller a ce que les enseignants de l'ecole se rattachent a leur classe</div>
-                        <div class="task-description">Verifier que tous les rattachements sont corrects</div>
+                        <div class="task-title">Associer les enseignants à leur classe, ou veiller à ce que les enseignants de l'école se rattachent à leur classe</div>
+                        <div class="task-description">Vérifier que tous les rattachements sont corrects</div>
                     </div>
                 </div>
 
                 <div class="task">
                     <input type="checkbox" id="task5">
                     <div class="task-content">
-                        <div class="task-title">Detacher au besoin les enseignants qui n'exercent plus dans l'ecole</div>
-                        <div class="task-description">Supprimer les acces des enseignants mutes ou partis</div>
+                        <div class="task-title">Détacher au besoin les enseignants qui n'exercent plus dans l'école</div>
+                        <div class="task-description">Supprimer les accès des enseignants mutés ou partis</div>
                     </div>
                 </div>
 
                 <div class="task">
                     <input type="checkbox" id="task6">
                     <div class="task-content">
-                        <div class="task-title">Detacher les AESH qui ne sont pas en exercice dans l'ecole</div>
-                        <div class="task-description">Mettre a jour la liste des AESH actifs</div>
+                        <div class="task-title">Détacher les AESH qui ne sont pas en exercice dans l'école</div>
+                        <div class="task-description">Mettre à jour la liste des AESH actifs</div>
                     </div>
                 </div>
 
@@ -243,7 +243,7 @@
                 <div class="task">
                     <input type="checkbox" id="task7">
                     <div class="task-content">
-                        <div class="task-title">Ne plus inclure le groupe "Administrateurs" dans les partages et les messages, sauf si necessaire</div>
+                        <div class="task-title">Ne plus inclure le groupe "Administrateurs" dans les partages et les messages, sauf si nécessaire</div>
                         <div class="task-description">Auditer et nettoyer les partages automatiques</div>
                     </div>
                 </div>
@@ -252,13 +252,13 @@
 
         <div class="footer">
             <div class="status-bar">
-                <div class="status-item">🎯 Objectif : Une rentree numerique bien organisee</div>
-                <div class="status-item">⏱️ Temps estime : 2-3 heures</div>
+                <div class="status-item">🎯 Objectif : Une rentrée numérique bien organisée</div>
+                <div class="status-item">⏱️ Temps estimé : 2-3 heures</div>
                 <div class="status-item">📋 Statut : En cours</div>
             </div>
-            <div class="progress" id="progress">Progression : 0/7 taches completees</div>
+            <div class="progress" id="progress">Progression : 0/7 tâches complétées</div>
             <div style="margin-top: 15px; font-size: 0.9em; color: #64748b; font-style: italic;">
-                Realise avec de l'IA, verifie par la DRANE
+                Réalisé avec de l'IA, vérifié par la DRANE
             </div>
         </div>
     </div>
@@ -269,7 +269,7 @@
             const checked = document.querySelectorAll('input[type="checkbox"]:checked');
             const progressElement = document.getElementById('progress');
             
-            // Mettre a jour les classes CSS pour les taches completees
+            // Mettre à jour les classes CSS pour les tâches complétées
             checkboxes.forEach(function(checkbox) {
                 const taskElement = checkbox.closest('.task');
                 if (checkbox.checked) {
@@ -279,12 +279,12 @@
                 }
             });
             
-            // Mettre a jour le texte de progression
-            progressElement.textContent = 'Progression : ' + checked.length + '/' + checkboxes.length + ' taches completees';
+            // Mettre à jour le texte de progression
+            progressElement.textContent = 'Progression : ' + checked.length + '/' + checkboxes.length + ' tâches complétées';
             
-            // Verifier si toutes les taches sont terminees
+            // Vérifier si toutes les tâches sont terminées
             if (checked.length === checkboxes.length && checkboxes.length > 0) {
-                progressElement.innerHTML = '🎉 Toutes les taches sont terminees ! Bonne rentree !';
+                progressElement.innerHTML = '🎉 Toutes les tâches sont terminées ! Bonne rentrée !';
                 progressElement.style.color = '#28a745';
             } else {
                 progressElement.style.color = '#3b82f6';
@@ -295,12 +295,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             
-            // Ajouter les ecouteurs d'evenements
+            // Ajouter les écouteurs d'événements
             checkboxes.forEach(function(checkbox) {
                 checkbox.addEventListener('change', updateProgress);
             });
             
-            // Mise a jour initiale
+            // Mise à jour initiale
             updateProgress();
         });
     </script>
