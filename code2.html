@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Checklist transition ENT HDF 2025</title>
+<title>Checklist Transition ENT HDF 2025</title>
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -110,10 +110,11 @@
         border-left-color: #10b9ae; 
         background: linear-gradient(135deg, #e0fff7 0%, #b2f7ef 100%);
         box-shadow: 0 8px 32px rgba(16,185,174,0.13);
+        cursor: default;
     }
     .task-item.completed {
-        background: #ecfdf5;
-        border-left-color: #10b981;
+        background: #ecfdf5 !important;
+        border-left-color: #10b981 !important;
         opacity: 0.8;
     }
     .task-item.completed .task-title {
@@ -133,6 +134,7 @@
         height: 26px;
         accent-color: #10b981;
         flex-shrink: 0;
+        cursor: pointer;
     }
     .task-description {
         color: #6b7280;
@@ -199,114 +201,114 @@
 </head>
 <body>
 <div class="container">
+    <div class="progress-container" id="progressTop">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFillTop"></div>
+        </div>
+        <div class="progress-text" id="progressTextTop">0% complété - Commencez par cocher vos premières tâches !</div>
+    </div>
     <div class="header">
         <h1>✅ Checklist Transition ENT HDF</h1>
         <h2>Année scolaire 2025</h2>
         <p>Votre guide complet pour préparer efficacement la nouvelle année scolaire sur l'ENT Hauts-de-France</p>
     </div>
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-text" id="progressText">0% complété - Commencez par cocher vos premières tâches !</div>
-    </div>
     <div class="tip">
         Astuce : Cliquez sur les tâches pour les marquer comme terminées et suivre votre progression !
     </div>
     <div class="tasks-grid">
-        <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-item" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Vérifier les rattachements des enseignants
             </div>
             <div class="task-description">
                 Assurez-vous que chaque enseignant est correctement rattaché à son établissement pour l'année à venir.
             </div>
         </div>
-        <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-item" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Supprimer les groupes manuels obsolètes
             </div>
             <div class="task-description">
                 Éliminez les groupes créés manuellement qui ne seront plus utilisés, à l'exception de ceux nécessaires comme le groupe "Resp Affect Gar".
             </div>
         </div>
-        <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-item" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Supprimer les favoris de partage inutiles
             </div>
             <div class="task-description">
                 Nettoyez les favoris de partage qui ne sont plus pertinents pour éviter toute confusion.
             </div>
         </div>
-        <div class="task-item warning" onclick="toggleTask(this)">
+        <div class="task-item warning" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Mettre à jour le groupe d’administrateurs locaux
             </div>
             <div class="task-description">
                 Actualisez ce groupe, surtout en cas de mutation de collègues.
             </div>
         </div>
-        <div class="task-item critical" onclick="toggleTask(this)">
+        <div class="task-item critical" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Bloquer les comptes (avant la rentrée et à chaque nouvelle inscription)
             </div>
             <div class="task-description">
                 Verrouillez les comptes avant la rentrée et recommencez la vérification quotidiennement lors des inscriptions.
             </div>
         </div>
-        <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-item" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Sauvegarder les contenus importants
             </div>
             <div class="task-description">
                 Assurez-vous que tous les documents, cours et ressources pédagogiques importants sont sauvegardés.
             </div>
         </div>
-        <div class="task-item" onclick="toggleTask(this)">
+        <div class="task-item" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Transférer les contenus aux enseignants concernés
             </div>
             <div class="task-description">
                 Si vous quittez l'établissement ou changez de classe, partagez les contenus pertinents avec les enseignants qui en auront besoin.
             </div>
         </div>
-        <div class="task-item warning" onclick="toggleTask(this)">
+        <div class="task-item warning" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Vérifier les partages de contenus
             </div>
             <div class="task-description">
                 Les partages réalisés avec des groupes préétablis seront supprimés. Les partages avec des personnes spécifiques ou des groupes manuels seront conservés.
             </div>
         </div>
-        <div class="task-item info" onclick="toggleTask(this)">
+        <div class="task-item info" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Créer un blog public pour les familles
             </div>
             <div class="task-description">
                 Si nécessaire, mettez en place un blog public pour fournir des informations générales aux familles n'ayant pas encore obtenu de compte ENT.
             </div>
         </div>
-        <div class="task-item info" onclick="toggleTask(this)">
+        <div class="task-item info" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Choisir deux éditeurs ou privilégier un groupe de profils pour chaque ressource
             </div>
             <div class="task-description">
                 Pour éviter qu'une ressource ne soit sans éditeur en cas de départ d'un membre de l'établissement.
             </div>
         </div>
-        <div class="task-item technical" onclick="toggleTask(this)">
+        <div class="task-item technical" onclick="toggleTask(event, this)">
             <div class="task-title">
-                <input type="checkbox" onclick="event.stopPropagation()"/>
+                <input type="checkbox"/>
                 Gérer les doublons
             </div>
             <div class="task-description">
@@ -314,7 +316,7 @@
             </div>
         </div>
         <!-- Bloc Ressources -->
-        <div class="task-item resources" style="cursor:default;" tabindex="0">
+        <div class="task-item resources" tabindex="0">
             <div class="task-title" style="font-size:1.3rem;">
                 💡 Ressources & Aide
             </div>
@@ -326,6 +328,12 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div class="progress-container" id="progressBottom">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFillBottom"></div>
+        </div>
+        <div class="progress-text" id="progressTextBottom">0% complété - Commencez par cocher vos premières tâches !</div>
     </div>
     <div class="footer">
         <div class="stats">
@@ -351,23 +359,35 @@
 </div>
 <script>
 let completedCount = 0;
-const totalTasks = document.querySelectorAll('.task-item:not(.resources)').length;
+const taskItems = Array.from(document.querySelectorAll('.task-item')).filter(item => !item.classList.contains('resources'));
+const totalTasks = taskItems.length;
 
-function toggleTask(taskElement) {
+function toggleTask(event, taskElement) {
+    // Ne coche pas si clic sur le bloc ressources
     if (taskElement.classList.contains('resources')) return;
+
+    // Clic sur la checkbox ou sur la tuile
     const checkbox = taskElement.querySelector('input[type="checkbox"]');
-    const isCompleted = taskElement.classList.contains('completed');
-    if (isCompleted) {
-        taskElement.classList.remove('completed');
-        checkbox.checked = false;
-        completedCount--;
+    // Si clic sur la checkbox, ne double pas le toggle
+    if (event.target === checkbox) {
+        if (checkbox.checked) {
+            taskElement.classList.add('completed');
+            completedCount++;
+        } else {
+            taskElement.classList.remove('completed');
+            completedCount--;
+        }
     } else {
-        taskElement.classList.add('completed');
-        checkbox.checked = true;
-        completedCount++;
-        taskElement.style.animation = 'none';
-        taskElement.offsetHeight;
-        taskElement.style.animation = 'fadeIn 0.5s ease';
+        // Clic sur la tuile
+        if (taskElement.classList.contains('completed')) {
+            taskElement.classList.remove('completed');
+            checkbox.checked = false;
+            completedCount--;
+        } else {
+            taskElement.classList.add('completed');
+            checkbox.checked = true;
+            completedCount++;
+        }
     }
     updateProgress();
     saveProgress();
@@ -375,22 +395,29 @@ function toggleTask(taskElement) {
 
 function updateProgress() {
     const percentage = Math.round((completedCount / totalTasks) * 100);
-    document.getElementById('progressFill').style.width = percentage + '%';
+    // Top bar
+    document.getElementById('progressFillTop').style.width = percentage + '%';
+    document.getElementById('progressTextTop').textContent = getProgressText(percentage);
+    // Bottom bar
+    document.getElementById('progressFillBottom').style.width = percentage + '%';
+    document.getElementById('progressTextBottom').textContent = getProgressText(percentage);
     document.getElementById('completedTasks').textContent = completedCount;
     document.getElementById('remainingTasks').textContent = totalTasks - completedCount;
-    const progressText = document.getElementById('progressText');
+}
+
+function getProgressText(percentage) {
     if (percentage === 0) {
-        progressText.textContent = '0% complété - Commencez par cocher vos premières tâches !';
+        return '0% complété - Commencez par cocher vos premières tâches !';
     } else if (percentage < 100) {
-        progressText.textContent = percentage + '% complété - Continuez, vous y êtes presque !';
+        return percentage + '% complété - Continuez, vous y êtes presque !';
     } else {
-        progressText.textContent = '🎉 100% complété - Checklist terminée !';
+        return '🎉 100% complété - Checklist terminée !';
     }
 }
 
 function saveProgress() {
     const completedIndices = [];
-    document.querySelectorAll('.task-item:not(.resources)').forEach((task, idx) => {
+    taskItems.forEach((task, idx) => {
         if (task.classList.contains('completed')) completedIndices.push(idx);
     });
     localStorage.setItem('completedTasks', JSON.stringify(completedIndices));
@@ -399,7 +426,7 @@ function saveProgress() {
 function restoreProgress() {
     const completedIndices = JSON.parse(localStorage.getItem('completedTasks') || '[]');
     completedCount = 0;
-    document.querySelectorAll('.task-item:not(.resources)').forEach((task, idx) => {
+    taskItems.forEach((task, idx) => {
         const checkbox = task.querySelector('input[type="checkbox"]');
         if (completedIndices.includes(idx)) {
             task.classList.add('completed');
@@ -415,7 +442,7 @@ function restoreProgress() {
 
 function resetAllTasks() {
     completedCount = 0;
-    document.querySelectorAll('.task-item:not(.resources)').forEach(task => {
+    taskItems.forEach(task => {
         task.classList.remove('completed');
         const checkbox = task.querySelector('input[type="checkbox"]');
         checkbox.checked = false;
@@ -426,6 +453,14 @@ function resetAllTasks() {
 
 document.addEventListener('DOMContentLoaded', function() {
     restoreProgress();
+    // Pour éviter le double comptage si on clique sur la checkbox
+    document.querySelectorAll('.task-item input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('click', function(e){
+            // Empêche la propagation pour éviter double toggle
+            e.stopPropagation();
+            toggleTask(e, checkbox.closest('.task-item'));
+        });
+    });
 });
 </script>
 </body>
