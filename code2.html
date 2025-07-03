@@ -3,19 +3,17 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Checklist transition ENT HDF 2025</title>
+<title>Checklist Transition ENT HDF 2025</title>
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #333;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        color: #333;
         min-height: 100vh;
         padding: 20px;
     }
     .container {
-        max-width: 1200px;
+        max-width: 1300px;
         margin: 0 auto;
         background: white;
         border-radius: 20px;
@@ -70,70 +68,44 @@
         font-weight: 600;
         color: #374151;
     }
-    .content {
+    .tip {
+        background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+        border: 1px solid #81d4fa;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 20px 0;
+        font-weight: 600;
+        color: #0277bd;
+    }
+    .tasks-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-        padding: 40px 30px;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+        padding: 40px;
+        grid-auto-flow: dense;
     }
-    @media (max-width: 1100px) {
-        .content { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 700px) {
-        .content { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
-        .section { padding: 20px; }
-    }
-    .section {
-        background: white;
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        border-top: 4px solid;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .section:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-    }
-    .section.accounts { border-color: #3b82f6; }
-    .section.content { border-color: #8b5cf6; }
-    .section.technical { border-color: #f59e0b; }
-    .section h3 {
-        font-size: 1.5rem;
-        margin-bottom: 25px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .section.accounts h3 { color: #3b82f6; }
-    .section.content h3 { color: #8b5cf6; }
-    .section.technical h3 { color: #f59e0b; }
     .task-item {
+        min-height: 220px;
         background: #f8fafc;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 15px;
-        border-left: 4px solid #10b981;
+        border-radius: 18px;
+        padding: 35px 30px 30px 30px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-left: 7px solid #10b981;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
         position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .task-item:hover {
         background: #f1f5f9;
-        transform: translateX(5px);
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.13);
     }
-    .task-item.critical {
-        border-left-color: #ef4444;
-        background: #fef2f2;
-    }
-    .task-item.warning {
-        border-left-color: #f59e0b;
-        background: #fffbeb;
-    }
-    .task-item.info {
-        border-left-color: #3b82f6;
-        background: #eff6ff;
-    }
+    .task-item.critical { border-left-color: #ef4444; background: #fef2f2; }
+    .task-item.warning { border-left-color: #f59e0b; background: #fffbeb; }
+    .task-item.info { border-left-color: #3b82f6; background: #eff6ff; }
     .task-item.completed {
         background: #ecfdf5;
         border-left-color: #10b981;
@@ -145,15 +117,25 @@
     }
     .task-title {
         font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 8px;
+        font-size: 1.25rem;
+        margin-bottom: 18px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
+    }
+    .task-title input[type="checkbox"] {
+        width: 26px;
+        height: 26px;
+        accent-color: #10b981;
+        flex-shrink: 0;
     }
     .task-description {
         color: #6b7280;
-        line-height: 1.6;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
     }
     .footer {
         background: #f8f9fa;
@@ -180,32 +162,28 @@
         color: #6b7280;
         font-size: 0.9rem;
     }
-    .tip {
-        background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
-        border: 1px solid #81d4fa;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 20px 0;
-        position: relative;
-    }
-    .tip-content {
-        font-weight: 600;
-        color: #0277bd;
-    }
     .reset-btn {
         background: linear-gradient(135deg, #ef4444, #dc2626);
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 12px 28px;
         border-radius: 8px;
         cursor: pointer;
         font-weight: 600;
         margin-top: 20px;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
     }
     .reset-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+    }
+    @media (max-width: 1000px) {
+        .tasks-grid { padding: 20px; gap: 25px; }
+    }
+    @media (max-width: 700px) {
+        .tasks-grid { grid-template-columns: 1fr; padding: 10px; }
+        .task-item { min-height: 180px; padding: 20px 14px; }
     }
 </style>
 </head>
@@ -223,124 +201,113 @@
         <div class="progress-text" id="progressText">0% complété - Commencez par cocher vos premières tâches !</div>
     </div>
     <div class="tip">
-        <div class="tip-content">
-            <strong>Astuce :</strong> Cliquez sur les tâches pour les marquer comme terminées et suivre votre progression !
-        </div>
+        Astuce : Cliquez sur les tâches pour les marquer comme terminées et suivre votre progression !
     </div>
-    <div class="content">
-        <div class="section accounts">
-            <h3>🔄 Comptes & Groupes</h3>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Vérifier les rattachements des enseignants
-                </div>
-                <div class="task-description">
-                    Assurez-vous que chaque enseignant est correctement rattaché à son établissement pour l'année à venir.
-                </div>
+    <div class="tasks-grid">
+        <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Vérifier les rattachements des enseignants
             </div>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Supprimer les groupes manuels obsolètes
-                </div>
-                <div class="task-description">
-                    Éliminez les groupes créés manuellement qui ne seront plus utilisés, à l'exception de ceux nécessaires comme le groupe "Resp Affect Gar".
-                </div>
-            </div>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Supprimer les favoris de partage inutiles
-                </div>
-                <div class="task-description">
-                    Nettoyez les favoris de partage qui ne sont plus pertinents pour éviter toute confusion.
-                </div>
-            </div>
-            <div class="task-item warning" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Mettre à jour le groupe d’administrateurs locaux
-                </div>
-                <div class="task-description">
-                    Actualisez ce groupe, surtout en cas de mutation de collègues.
-                </div>
-            </div>
-            <div class="task-item critical" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Bloquer les comptes (avant la rentrée et à chaque nouvelle inscription)
-                </div>
-                <div class="task-description">
-                    Verrouillez les comptes avant la rentrée et recommencez la vérification quotidiennement lors des inscriptions.
-                </div>
+            <div class="task-description">
+                Assurez-vous que chaque enseignant est correctement rattaché à son établissement pour l'année à venir.
             </div>
         </div>
-        <div class="section content">
-            <h3>📁 Contenus & Partages</h3>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Sauvegarder les contenus importants
-                </div>
-                <div class="task-description">
-                    Assurez-vous que tous les documents, cours et ressources pédagogiques importants sont sauvegardés.
-                </div>
+        <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Supprimer les groupes manuels obsolètes
             </div>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Transférer les contenus aux enseignants concernés
-                </div>
-                <div class="task-description">
-                    Si vous quittez l'établissement ou changez de classe, partagez les contenus pertinents avec les enseignants qui en auront besoin.
-                </div>
-            </div>
-            <div class="task-item warning" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Vérifier les partages de contenus
-                </div>
-                <div class="task-description">
-                    Les partages réalisés avec des groupes préétablis seront supprimés. Les partages avec des personnes spécifiques ou des groupes manuels seront conservés.
-                </div>
-            </div>
-            <div class="task-item info" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Créer un blog public pour les familles
-                </div>
-                <div class="task-description">
-                    Si nécessaire, mettez en place un blog public pour fournir des informations générales aux familles n'ayant pas encore obtenu de compte ENT.
-                </div>
-            </div>
-            <div class="task-item info" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Choisir deux éditeurs ou privilégier un groupe de profils pour chaque ressource
-                </div>
-                <div class="task-description">
-                    Pour éviter qu'une ressource ne soit sans éditeur en cas de départ d'un membre de l'établissement.
-                </div>
+            <div class="task-description">
+                Éliminez les groupes créés manuellement qui ne seront plus utilisés, à l'exception de ceux nécessaires comme le groupe "Resp Affect Gar".
             </div>
         </div>
-        <div class="section technical">
-            <h3>🛠️ Technique</h3>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Gérer les doublons
-                </div>
-                <div class="task-description">
-                    Identifiez et résolvez les éventuels doublons de comptes pour éviter des problèmes d'accès.
-                </div>
+        <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Supprimer les favoris de partage inutiles
+            </div>
+            <div class="task-description">
+                Nettoyez les favoris de partage qui ne sont plus pertinents pour éviter toute confusion.
+            </div>
+        </div>
+        <div class="task-item warning" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Mettre à jour le groupe d’administrateurs locaux
+            </div>
+            <div class="task-description">
+                Actualisez ce groupe, surtout en cas de mutation de collègues.
+            </div>
+        </div>
+        <div class="task-item critical" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Bloquer les comptes (avant la rentrée et à chaque nouvelle inscription)
+            </div>
+            <div class="task-description">
+                Verrouillez les comptes avant la rentrée et recommencez la vérification quotidiennement lors des inscriptions.
+            </div>
+        </div>
+        <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Sauvegarder les contenus importants
+            </div>
+            <div class="task-description">
+                Assurez-vous que tous les documents, cours et ressources pédagogiques importants sont sauvegardés.
+            </div>
+        </div>
+        <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Transférer les contenus aux enseignants concernés
+            </div>
+            <div class="task-description">
+                Si vous quittez l'établissement ou changez de classe, partagez les contenus pertinents avec les enseignants qui en auront besoin.
+            </div>
+        </div>
+        <div class="task-item warning" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Vérifier les partages de contenus
+            </div>
+            <div class="task-description">
+                Les partages réalisés avec des groupes préétablis seront supprimés. Les partages avec des personnes spécifiques ou des groupes manuels seront conservés.
+            </div>
+        </div>
+        <div class="task-item info" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Créer un blog public pour les familles
+            </div>
+            <div class="task-description">
+                Si nécessaire, mettez en place un blog public pour fournir des informations générales aux familles n'ayant pas encore obtenu de compte ENT.
+            </div>
+        </div>
+        <div class="task-item info" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Choisir deux éditeurs ou privilégier un groupe de profils pour chaque ressource
+            </div>
+            <div class="task-description">
+                Pour éviter qu'une ressource ne soit sans éditeur en cas de départ d'un membre de l'établissement.
+            </div>
+        </div>
+        <div class="task-item technical" onclick="toggleTask(this)">
+            <div class="task-title">
+                <input type="checkbox" onclick="event.stopPropagation()"/>
+                Gérer les doublons
+            </div>
+            <div class="task-description">
+                Identifiez et résolvez les éventuels doublons de comptes pour éviter des problèmes d'accès.
             </div>
         </div>
     </div>
     <div class="footer">
         <div class="stats">
             <div class="stat">
-                <span class="stat-number" id="totalTasks">10</span>
+                <span class="stat-number" id="totalTasks">11</span>
                 <span class="stat-label">Tâches totales</span>
             </div>
             <div class="stat">
@@ -348,7 +315,7 @@
                 <span class="stat-label">Terminées</span>
             </div>
             <div class="stat">
-                <span class="stat-number" id="remainingTasks">10</span>
+                <span class="stat-number" id="remainingTasks">11</span>
                 <span class="stat-label">Restantes</span>
             </div>
         </div>
