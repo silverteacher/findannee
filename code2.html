@@ -5,8 +5,212 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Checklist Transition ENT HDF 2025</title>
 <style>
-    /* ... (garde tout le CSS de ton fichier, il est correct) ... */
-    /* Pour la lisibilité, je ne répète pas ici le CSS qui est déjà bon dans ton fichier. */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+    .header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; position: relative; z-index: 1; }
+    .header h2 { font-size: 1.5rem; margin-bottom: 15px; opacity: 0.9; position: relative; z-index: 1; }
+    .header p { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+    .progress-container {
+        background: #f8f9fa;
+        padding: 20px;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #10b981, #059669);
+        width: 0%;
+        transition: width 0.5s ease;
+        border-radius: 10px;
+    }
+    .progress-text {
+        text-align: center;
+        font-weight: 600;
+        color: #374151;
+    }
+    .content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        padding: 40px 30px;
+    }
+    .section {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        border-top: 4px solid;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+    .section.accounts { border-color: #3b82f6; }
+    .section.content { border-color: #8b5cf6; }
+    .section.technical { border-color: #f59e0b; }
+    .section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .section.accounts h3 { color: #3b82f6; }
+    .section.content h3 { color: #8b5cf6; }
+    .section.technical h3 { color: #f59e0b; }
+    .task-item {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid #10b981;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .task-item:hover {
+        background: #f1f5f9;
+        transform: translateX(5px);
+    }
+    .task-item.critical {
+        border-left-color: #ef4444;
+        background: #fef2f2;
+    }
+    .task-item.warning {
+        border-left-color: #f59e0b;
+        background: #fffbeb;
+    }
+    .task-item.info {
+        border-left-color: #3b82f6;
+        background: #eff6ff;
+    }
+    .task-item.completed {
+        background: #ecfdf5;
+        border-left-color: #10b981;
+        opacity: 0.8;
+    }
+    .task-item.completed .task-title {
+        text-decoration: line-through;
+        color: #6b7280;
+    }
+    .task-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .task-description {
+        color: #6b7280;
+        line-height: 1.6;
+    }
+    .footer {
+        background: #f8f9fa;
+        text-align: center;
+        padding: 30px;
+        color: #6b7280;
+        border-top: 1px solid #e5e7eb;
+    }
+    .stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1f2937;
+        display: block;
+    }
+    .stat-label {
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+        .header h1 { font-size: 2rem; }
+        .header h2 { font-size: 1.2rem; }
+        .content { 
+            grid-template-columns: 1fr;
+            padding: 20px;
+            gap: 20px;
+        }
+        .section { padding: 20px; }
+        .stats { gap: 20px; }
+    }
+    .tip {
+        background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+        border: 1px solid #81d4fa;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 20px 0;
+        position: relative;
+    }
+    .tip-content {
+        font-weight: 600;
+        color: #0277bd;
+    }
+    .reset-btn {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+    }
+    .reset-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+    }
 </style>
 </head>
 <body>
@@ -67,7 +271,7 @@
                     Verrouillez les comptes pour éviter des connexions prématurées et garantir que les données soient à jour lors de la réouverture.
                 </div>
             </div>
-            <!-- AJOUT 1 : Mettre à jour le groupe d'administrateurs locaux -->
+            <!-- Ajout 1 -->
             <div class="task-item warning" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
@@ -77,7 +281,7 @@
                     <strong>Sous-titre :</strong> Vérifiez et actualisez ce groupe, surtout si des collègues ont obtenu leur mutation, afin de garantir la continuité du blocage des comptes.
                 </div>
             </div>
-            <!-- AJOUT 2 : Blocage des comptes à chaque inscription -->
+            <!-- Ajout 2 -->
             <div class="task-item critical" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
@@ -127,7 +331,7 @@
                     Si nécessaire, mettez en place un blog public pour fournir des informations générales aux familles n'ayant pas encore obtenu de compte ENT.
                 </div>
             </div>
-            <!-- AJOUT 3 : Choisir deux éditeurs ou groupe de profils -->
+            <!-- Ajout 3 -->
             <div class="task-item info" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
@@ -175,15 +379,12 @@
     </div>
 </div>
 <script>
-// Variables globales
 let completedCount = 0;
 const totalTasks = document.querySelectorAll('.task-item').length;
 
-// Fonction pour basculer l'état d'une tâche
 function toggleTask(taskElement) {
     const checkbox = taskElement.querySelector('input[type="checkbox"]');
     const isCompleted = taskElement.classList.contains('completed');
-
     if (isCompleted) {
         taskElement.classList.remove('completed');
         checkbox.checked = false;
@@ -200,18 +401,12 @@ function toggleTask(taskElement) {
     saveProgress();
 }
 
-// Fonction pour mettre à jour la barre de progression
 function updateProgress() {
     const percentage = Math.round((completedCount / totalTasks) * 100);
-    const progressFill = document.getElementById('progressFill');
+    document.getElementById('progressFill').style.width = percentage + '%';
+    document.getElementById('completedTasks').textContent = completedCount;
+    document.getElementById('remainingTasks').textContent = totalTasks - completedCount;
     const progressText = document.getElementById('progressText');
-    const completedTasksSpan = document.getElementById('completedTasks');
-    const remainingTasksSpan = document.getElementById('remainingTasks');
-
-    progressFill.style.width = percentage + '%';
-    completedTasksSpan.textContent = completedCount;
-    remainingTasksSpan.textContent = totalTasks - completedCount;
-
     if (percentage === 0) {
         progressText.textContent = '0% complété - Commencez par cocher vos premières tâches !';
     } else if (percentage < 100) {
@@ -221,18 +416,14 @@ function updateProgress() {
     }
 }
 
-// Fonction pour sauvegarder la progression dans le localStorage
 function saveProgress() {
     const completedIndices = [];
     document.querySelectorAll('.task-item').forEach((task, idx) => {
-        if (task.classList.contains('completed')) {
-            completedIndices.push(idx);
-        }
+        if (task.classList.contains('completed')) completedIndices.push(idx);
     });
     localStorage.setItem('completedTasks', JSON.stringify(completedIndices));
 }
 
-// Fonction pour restaurer la progression depuis le localStorage
 function restoreProgress() {
     const completedIndices = JSON.parse(localStorage.getItem('completedTasks') || '[]');
     completedCount = 0;
@@ -250,7 +441,6 @@ function restoreProgress() {
     updateProgress();
 }
 
-// Fonction pour réinitialiser toutes les tâches
 function resetAllTasks() {
     completedCount = 0;
     document.querySelectorAll('.task-item').forEach(task => {
@@ -262,7 +452,6 @@ function resetAllTasks() {
     localStorage.removeItem('completedTasks');
 }
 
-// Initialisation au chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
     restoreProgress();
 });
