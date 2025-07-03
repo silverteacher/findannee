@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Checklist Transition ENT HDF 2025</title>
+<title>Checklist transition ENT HDF 2025</title>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -72,9 +72,16 @@
     }
     .content {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 30px;
         padding: 40px 30px;
+    }
+    @media (max-width: 1100px) {
+        .content { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 700px) {
+        .content { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
+        .section { padding: 20px; }
     }
     .section {
         background: white;
@@ -173,17 +180,6 @@
         color: #6b7280;
         font-size: 0.9rem;
     }
-    @media (max-width: 768px) {
-        .header h1 { font-size: 2rem; }
-        .header h2 { font-size: 1.2rem; }
-        .content { 
-            grid-template-columns: 1fr;
-            padding: 20px;
-            gap: 20px;
-        }
-        .section { padding: 20px; }
-        .stats { gap: 20px; }
-    }
     .tip {
         background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
         border: 1px solid #81d4fa;
@@ -232,9 +228,8 @@
         </div>
     </div>
     <div class="content">
-        <!-- Column 1: Gestion des comptes -->
         <div class="section accounts">
-            <h3>🔄 Gestion des comptes et des groupes</h3>
+            <h3>🔄 Comptes & Groupes</h3>
             <div class="task-item" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
@@ -262,39 +257,27 @@
                     Nettoyez les favoris de partage qui ne sont plus pertinents pour éviter toute confusion.
                 </div>
             </div>
-            <div class="task-item critical" onclick="toggleTask(this)">
-                <div class="task-title">
-                    <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Bloquer les comptes avant la rentrée
-                </div>
-                <div class="task-description">
-                    Verrouillez les comptes pour éviter des connexions prématurées et garantir que les données soient à jour lors de la réouverture.
-                </div>
-            </div>
-            <!-- Ajout 1 -->
             <div class="task-item warning" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
                     Mettre à jour le groupe d’administrateurs locaux
                 </div>
                 <div class="task-description">
-                    <strong>Sous-titre :</strong> Vérifiez et actualisez ce groupe, surtout si des collègues ont obtenu leur mutation, afin de garantir la continuité du blocage des comptes.
+                    Actualisez ce groupe, surtout en cas de mutation de collègues.
                 </div>
             </div>
-            <!-- Ajout 2 -->
             <div class="task-item critical" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Bloquer les comptes à chaque nouvelle inscription
+                    Bloquer les comptes (avant la rentrée et à chaque nouvelle inscription)
                 </div>
                 <div class="task-description">
-                    <strong>Sous-titre :</strong> Recommencer cette vérification tous les jours lors de la période d’inscription.
+                    Verrouillez les comptes avant la rentrée et recommencez la vérification quotidiennement lors des inscriptions.
                 </div>
             </div>
         </div>
-        <!-- Column 2: Gestion des contenus -->
         <div class="section content">
-            <h3>📁 Gestion des contenus et des partages</h3>
+            <h3>📁 Contenus & Partages</h3>
             <div class="task-item" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
@@ -331,20 +314,18 @@
                     Si nécessaire, mettez en place un blog public pour fournir des informations générales aux familles n'ayant pas encore obtenu de compte ENT.
                 </div>
             </div>
-            <!-- Ajout 3 -->
             <div class="task-item info" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
-                    Choisir deux éditeurs pour chaque ressource ou privilégier un groupe de profils
+                    Choisir deux éditeurs ou privilégier un groupe de profils pour chaque ressource
                 </div>
                 <div class="task-description">
-                    <strong>Sous-titre :</strong> Préférez la gestion par groupe de profils pour éviter qu'une ressource ne soit sans éditeur en cas de départ d'un membre de l'établissement.
+                    Pour éviter qu'une ressource ne soit sans éditeur en cas de départ d'un membre de l'établissement.
                 </div>
             </div>
         </div>
-        <!-- Column 3: Préparation technique -->
         <div class="section technical">
-            <h3>🛠️ Préparation technique</h3>
+            <h3>🛠️ Technique</h3>
             <div class="task-item" onclick="toggleTask(this)">
                 <div class="task-title">
                     <input type="checkbox" onclick="event.stopPropagation()"/>
@@ -359,7 +340,7 @@
     <div class="footer">
         <div class="stats">
             <div class="stat">
-                <span class="stat-number" id="totalTasks">12</span>
+                <span class="stat-number" id="totalTasks">10</span>
                 <span class="stat-label">Tâches totales</span>
             </div>
             <div class="stat">
@@ -367,7 +348,7 @@
                 <span class="stat-label">Terminées</span>
             </div>
             <div class="stat">
-                <span class="stat-number" id="remainingTasks">12</span>
+                <span class="stat-number" id="remainingTasks">10</span>
                 <span class="stat-label">Restantes</span>
             </div>
         </div>
